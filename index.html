@@ -10,10 +10,26 @@
     <link rel="stylesheet" href="css/colors.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="manifest" href="manifest.json">
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyC5sNpG36GRj24pdXtqvjOysqkn3SqLjw0",
+        authDomain: "meupwa.firebaseapp.com",
+        databaseURL: "https://meupwa.firebaseio.com",
+        projectId: "meupwa",
+        storageBucket: "",
+        messagingSenderId: "86676550585"
+    };
+    firebase.initializeApp(config);
+    </script>
     
     <script src="js/object.observe.polyfill.js"></script>
     <script src="js/array.observe.polyfill.js"></script>
     <script src="js/scripts.js"></script>
+    <script src="js/push.js"></script>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-status-bar-style" content="black">
