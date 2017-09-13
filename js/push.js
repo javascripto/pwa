@@ -12,3 +12,14 @@ messaging.requestPermission().then(function(){
         }
     });
 });
+
+messaging.getToken().then(function(){
+    if(currentToken){
+        console.log(currentToken);
+        return currentToken;
+    }else{
+        console.warn('Nenhum id disponível, Solicite permissão para gerar um');
+    }
+}).catch(function(err){
+    console.warn('get token err', err);
+});
