@@ -1,35 +1,35 @@
 let notes = window.localStorage.getItem('notes') || '{"data": []}';
 notes = JSON.parse(notes);
 
-let updateList = function(){
+let updateList = function() {
     console.log('[Application] start watch');
-    Array.observe(notes.data, function(changes){
+    Array.observe(notes.data, function(changes) {
         let index = null;
         let value = '';
         let status = null;
         // console.log(changes);
-        if(changes[0].type == 'splice'){
+        if (changes[0].type == 'splice') {
             index = changes[0].index;
             value = changes[0].object[index];
             status = changes[0].addedCount > 0 ? 'created' : 'removed';
         }
-        if(changes[0].type == 'update'){
+        if (changes[0].type == 'update') {
             index = changes[0].name;
             value = changes[0].object[index];
             status = 'update';
         }
-        if(!value && status === 'created' && status === 'updated'){
+        if (!value && status === 'created' && status === 'updated') {
             return;
         }
         let notesTag = document.getElementById('notes');
-        if(status === 'updated'){
+        if (status === 'updated') {
             console.log('implementar');
         }
-        if(status === 'removed'){
+        if (status === 'removed') {
             let listOfNotes = document.querySelectorAll('#notes li');
             notesTag.removeChild(listOfNotes[index]);
         }
-        if(status === 'created'){
+        if (status === 'created') {
             let newLi = document.createElement('li');
             newLi.innerHTML = value;
             notesTag.appendChild(newLi);
@@ -38,7 +38,7 @@ let updateList = function(){
     });
 };
 
-let createNote = function(){
+let createNote = function() {
     let input = document.querySelector('#form-add-note input[type="text"]');
     let value = input.value;
     notes.data.push(value);
@@ -47,16 +47,12 @@ let createNote = function(){
 
 updateList();
 
-document.addEventListener('DOMContentLoaded', function(event){
-    let listOfNotes = document.getElementById('notes');
-    let listHtml = '';
-    for(let i=0; i < notes.data.length; i++){
-        listHtml += `<li>${notes.data[i]}</li>`;
-    }
-    listOfNotes.innerHTML = listHtml;
+document.addEventListener('DOMContentLoaded', function(event) {
+    var items = notes.data.map(note => `<li>${note}</li>`).join('');
+    document.querySelector('#notes').innerHTML = items;
 
-    let formAddNotes = document.querySelector('#form-add-note');
-    formAddNotes.addEventListener('submit', function(e){
+    document.querySelector('#form-add-note')
+    .addEventListener('submit', function(e){
         e.preventDefault();
         createNote();
     });
@@ -64,24 +60,16 @@ document.addEventListener('DOMContentLoaded', function(event){
 
 document.addEventListener('click', function(e){
     let notesTag = document.querySelector('#notes');
-    if(e.target.parentElement == notesTag){ // importante
-        if(confirm('Remover esta nota?')){
-            let listOfNotes = document.querySelectorAll('#notes li');
-            listOfNotes.forEach(function(item, index){
-                if(e.target === item){
-                    notes.data.splice(index, 1); // importante
-                }
-            });
-        }
+    if(e.target.parentElement == notesTag && (confirm('Remover esta nota?')){
+        let listOfNotes = document.querySelectorAll('#notes li');
+        listOfNotes.forEach(function(item, index){
+            if(e.target === item)
+                notes.data.splice(index, 1); // importante
+        });
     }
 });
 
-if('serviceWorker' in navigator){
-    navigator.serviceWorker
-    .register('./service-worker.js')
-    .then(function(reg){
-        console.log("service Worker Registered!");
-    }).catch(function(err){
-        console.log("Erro:", err);
-    });
-}
+if('serviceWorker' in navigator)
+    navigator.serviceWorker.register('./service-worker.js')
+    .then(reg  => console.log("service Worker Registered!"))
+    .catch(err => console.log("Erro:", err));
