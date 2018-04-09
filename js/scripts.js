@@ -58,14 +58,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
     });
 });
 
-document.addEventListener('click', function(e){
+document.addEventListener('click', function(e) {
     let notesTag = document.querySelector('#notes');
-    if(e.target.parentElement == notesTag &&) {
+    if(e.target.parentElement == notesTag) {
         if (confirm('Remover esta nota?')) {
-            let listOfNotes = document.querySelectorAll('#notes li');
-            listOfNotes.forEach(function(item, index){
+            [].slice.call(document.querySelectorAll('#notes li')).forEach(function(item, index) {
                 if(e.target === item)
-                    notes.data.splice(index, 1); // importante
+                    notes.data.splice(index, 1);
             });
         }
     }
