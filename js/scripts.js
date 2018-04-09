@@ -60,12 +60,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 document.addEventListener('click', function(e){
     let notesTag = document.querySelector('#notes');
-    if(e.target.parentElement == notesTag && (confirm('Remover esta nota?')){
+    if(e.target.parentElement == notesTag &&) {
+        if (confirm('Remover esta nota?')) {
         let listOfNotes = document.querySelectorAll('#notes li');
         listOfNotes.forEach(function(item, index){
             if(e.target === item)
                 notes.data.splice(index, 1); // importante
         });
+        }
     }
 });
 
